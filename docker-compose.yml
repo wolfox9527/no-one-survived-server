@@ -1,0 +1,25 @@
+version: "3.4"
+services:
+  server:
+#    command: bash
+    build: .
+    image: silentmecha/no-one-survived-server:latest
+    restart: unless-stopped
+    ports:
+      - ${PORT}:${PORT}/udp
+      - ${QUERYPORT}:${QUERYPORT}/udp
+    env_file: .env
+    stdin_open: true
+    tty: true
+    volumes:
+      - save_data:/home/steam/NoOneSurvived-dedicated/WRSH/Saved
+  sftp:
+    image: atmoz/sftp
+    restart: unless-stopped
+    volumes:
+      - save_data:/home/${SFT_USER}/saved
+    ports:
+      - "${SFT_PORT}:22"
+    command: ${SFT_USER}:${SFT_PASS}:::saved
+volumes:
+  save_data:
