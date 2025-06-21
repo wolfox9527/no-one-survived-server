@@ -18,7 +18,7 @@ function is_vcredist_installed {
 # Set up trap for SIGTERM and SIGINT
 trap "clean_up" SIGTERM SIGINT
 
-if [ $AUTO_UPDATE]; then
+if [ $AUTO_UPDATE ]; then
     steamcmd \
 	+@sSteamCmdForcePlatformType windows \
 	+force_install_dir "${STEAMAPPDIR}" \
